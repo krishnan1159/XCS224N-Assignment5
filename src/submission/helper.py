@@ -71,7 +71,8 @@ def finetune(reading_params_path, finetune_corpus_path, pretrain_dataset, block_
         model.load_state_dict(torch.load(reading_params_path, weights_only=True))
     
     tconf = TrainerConfig(max_epochs=max_epochs, batch_size=256, learning_rate=6e-4, lr_decay=True, warmup_tokens=512*20, final_tokens=200*len(pretrain_dataset)*block_size, num_workers=0)
-    train_dataset = NameDataset(data=finetune_corpus_path, pretraining_dataset=pretrain_dataset)
+    data = open(finetune_corpus_path, encoding='utf-8').read()
+    train_dataset = NameDataset(data=data, pretraining_dataset=pretrain_dataset)
     trainer_obj = Trainer(model=model, train_dataset=train_dataset, config=tconf, test_dataset=None)
 
     ### END CODE HERE

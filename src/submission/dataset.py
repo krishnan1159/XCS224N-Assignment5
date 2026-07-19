@@ -177,8 +177,7 @@ class CharCorruptionDataset(Dataset):
 
         ### START CODE HERE
         data = self.data[idx]
-        len_data = len(data)
-        trunc_data_len = random.randint(4, (3 * len_data) // 4)
+        trunc_data_len = random.randint(4, (3 * self.block_size) // 4)
         trunc_data = data[:trunc_data_len]
         len_trunc_data = len(trunc_data)
         mask_len = random.randint(len_trunc_data // 5, (len_trunc_data * 3) // 10) # this will ensure mask_len is around 1/4th of truncated_data
